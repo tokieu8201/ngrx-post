@@ -1,0 +1,39 @@
+<form [formGroup]="addForm">
+    <div class="card-body">
+        <div class="form-group">
+            <label for="name">Title<span style="color: red;">*</span></label>
+            <input type="text" class="form-control" placeholder="Enter title" id="title" formControlName="title">
+            <div *ngIf="addForm.get('title')?.invalid && addForm.get('title')?.touched" class="text-danger">
+                Title is required
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name">Short Description<span style="color: red;">*</span></label>
+            <textarea type="text" class="form-control" placeholder="Enter short description" id="shortDescription" formControlName="shortDescription"></textarea>
+            <div *ngIf="addForm.get('shortDescription')?.invalid && addForm.get('shortDescription')?.touched" class="text-danger">
+                Short description is required
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="text">Description<span style="color: red;">*</span></label>
+            <textarea type="text" class="form-control" placeholder="Description" id="description" formControlName="description"></textarea>
+            <div *ngIf="addForm.get('description')?.invalid && addForm.get('description')?.touched" class="text-danger">
+                Description is required
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name">Image<span style="color: red;">*</span></label>
+            <input type="text" class="form-control" placeholder="Enter image" id="image" formControlName="image">
+            <div *ngIf="addForm.get('image')?.invalid && addForm.get('image')?.touched" class="text-danger">
+                Image is required
+            </div>
+        </div>
+        <div *ngIf="error" class="text-danger pb-3">
+            {{ error }}
+        </div>
+        <!-- <div class="d-flex"> -->
+        <button (click)="onCancel()" type="submit" class="btn btn-outline-secondary mr-1">Cancel</button>
+        <button (click)="onSavePost()" type="submit" class="btn btn-success">Save</button>
+        <!-- </div> -->
+    </div>
+</form>
