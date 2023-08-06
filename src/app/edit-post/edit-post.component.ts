@@ -3,6 +3,7 @@ import { Post } from '../models/post.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { updatePostSuccess } from '../state/post.actions';
+import { selectSelectedPost } from '../state/post.selectors';
 
 @Component({
   selector: 'app-edit-post',
@@ -10,7 +11,8 @@ import { updatePostSuccess } from '../state/post.actions';
   styleUrls: ['./edit-post.component.css']
 })
 export class EditPostComponent implements OnInit, OnChanges {
-  @Input() editedPost!: Post;
+  @Input() selectedPost!: Post;
+
   @Output() cancel = new EventEmitter<void>();
   error: string = '';
 
@@ -20,24 +22,24 @@ export class EditPostComponent implements OnInit, OnChanges {
   }
   ngOnInit(): void {
     this.editForm = this.formBuilder.group({
-      id: [{ value: this.editedPost.id, disabled: true }],
-      title: [this.editedPost.title, Validators.required],
-      description: [this.editedPost.description, Validators.required],
-      shortDescription: [this.editedPost.shortDescription, Validators.required],
-      image: [this.editedPost.image, Validators.required],
+      id: [{ value: this.selectedPost?.id, disabled: true }],
+      title: [this.selectedPost?.title, Validators.required],
+      description: [this.selectedPost?.description, Validators.required],
+      shortDescription: [this.selectedPost?.shortDescription, Validators.required],
+      image: [this.selectedPost?.image, Validators.required],
     });
   }
 
   ngOnChanges(): void {
     if (this.editForm) {
-      this.editForm.patchValue(this.editedPost);
+      this.editForm.patchValue(this.selectedPost);
     }
   }
 
   onSubmit() {
     if (this.editForm.valid) {
       const updatedPost: Post = {
-        ...this.editedPost,
+        ...this.selectedPost,
         title: this.editForm.get('title')?.value,
         description: this.editForm.get('description')?.value,
         shortDescription: this.editForm.get('shortDescription')?.value,

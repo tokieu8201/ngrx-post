@@ -30,14 +30,8 @@ export class AddPostComponent {
 
   onSavePost() {
     if (this.addForm.valid) {
-      const { title, description, shortDescription, image } = this.addForm.value;
-      const post: Post = {
-        id: this.posts.length > 0 ? this.posts[this.posts.length - 1].id + 1 : 1,
-        title,
-        description,
-        shortDescription,
-        image
-      };
+      const post : Post = this.addForm.value;
+      post.id = this.posts.length > 0 ? this.posts[this.posts.length - 1].id + 1 : 1,
       this.store.dispatch(addPost({ post }));
       // this.addForm.reset();
       this.onCancel();

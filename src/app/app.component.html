@@ -15,16 +15,17 @@
       <app-search></app-search>
     </div>
     <div class="col-6">
-      <button (click)="addNewPost()" class="btn btn-outline-success mt-2 mb-2" style="width: 150px; height: 40px;">Add post<i class='bx bx-plus-medical pl-2'></i></button>
+      <button (click)="addNewPost()" class="btn btn-outline-success mt-2 mb-2" style="width: 150px; height: 40px;">Add
+        post<i class='bx bx-plus-medical pl-2'></i></button>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-8">
-      <app-list-post (edit)="onEdit($event)"></app-list-post>
+      <app-list-post></app-list-post>
     </div>
     <div class="col-sm-4">
       <app-add-post *ngIf="showAddForm" (cancel)="onCancel()"></app-add-post>
-      <app-edit-post *ngIf="selectedPost" [editedPost]="selectedPost" (cancel)="onCancel()"></app-edit-post>
+      <app-edit-post *ngIf="selectedPost" (cancel)="onCancel()" [selectedPost]="selectedPost"></app-edit-post>
     </div>
   </div>
 </div>

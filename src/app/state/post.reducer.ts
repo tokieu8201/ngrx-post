@@ -5,10 +5,14 @@ import { addPost, deletePost, searchPost, updatePost, updatePostSuccess } from '
 export interface PostState {
     posts: Post[];
     selectedPost: Post | null;
+    searchKeyword: string;
+    previousPosts: Post[] | null;
 }
 export const initialState: PostState = {
     posts: [] = POSTS,
-    selectedPost: null
+    selectedPost: null,
+    searchKeyword: '',
+    previousPosts: null
 }
 
 export const postReducer = createReducer(
@@ -21,10 +25,25 @@ export const postReducer = createReducer(
         ...state,
         posts: state.posts.filter(post => post.id !== id)
     })),
-    on(searchPost, (state, { keyword }) => ({
-        ...state,
-        posts: state.posts.filter(post => post.title.toLowerCase().includes(keyword.toLowerCase()))
-    })),
+    // on(searchPost, (state, { keyword }) => ({
+    //     ...state,
+    //     posts: state.posts.filter(post => post.title.toLowerCase().includes(keyword.toLowerCase()))
+    // })),
+
+    on(searchPost, (state, { keyword }) => {
+        if (keyword.trim() === '') {
+            return { ...state, posts: state.previousPosts || []};
+        } else {
+            return {
+                ...state,
+                previousPosts: state.posts,
+                posts: state.posts.filter((post) =>
+                    post.title.toLowerCase().includes(keyword.toLowerCase())
+                ),
+            };
+        }
+    }),
+    
     on(updatePost, (state, { post }) => ({
         ...state,
         selectedPost: post

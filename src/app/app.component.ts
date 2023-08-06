@@ -1,8 +1,8 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Post } from './models/post.model';
 import { Store } from '@ngrx/store';
 import { selectSelectedPost } from './state/post.selectors';
+import { updatePost } from './state/post.actions';
 
 @Component({
   selector: 'app-root',
@@ -12,18 +12,12 @@ import { selectSelectedPost } from './state/post.selectors';
 export class AppComponent {
   title = 'ngrx-post';
   showAddForm = false;
-
   selectedPost: Post | null | undefined;
-
-  constructor(private store: Store) {
-    this.store.select(selectSelectedPost).subscribe(post => {
+  constructor(private store: Store<{ posts: Post[] }>) {
+    this.store.select(selectSelectedPost).subscribe((post) => {
       this.selectedPost = post;
-    })
-  }
-
-  onEdit(post: Post) {
-    this.selectedPost = post;
-    this.showAddForm = false;
+      this.showAddForm = false;
+    });
   }
   
   addNewPost() {
@@ -35,5 +29,4 @@ export class AppComponent {
     this.showAddForm = false;
     this.selectedPost = null;
   }
-
 }

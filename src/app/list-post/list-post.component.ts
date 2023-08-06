@@ -12,7 +12,6 @@ import { deletePost, updatePost, updatePostSuccess } from '../state/post.actions
 })
 export class ListPostComponent {
   posts$: Observable<Post[]>;
-  @Output() edit = new EventEmitter<Post>();
 
   constructor(private store: Store) {
     this.posts$ = this.store.select(selectAllPosts);
@@ -23,7 +22,6 @@ export class ListPostComponent {
   }
 
   onSelectPost(post: Post) {
-    this.edit.emit(post);
     this.store.dispatch(updatePost({ post }));
   }
 }
