@@ -25,11 +25,7 @@ export const postReducer = createReducer(
         ...state,
         posts: state.posts.filter(post => post.id !== id)
     })),
-    // on(searchPost, (state, { keyword }) => ({
-    //     ...state,
-    //     posts: state.posts.filter(post => post.title.toLowerCase().includes(keyword.toLowerCase()))
-    // })),
-
+    
     on(searchPost, (state, { keyword }) => {
         if (keyword.trim() === '') {
             return { ...state, posts: state.previousPosts || []};

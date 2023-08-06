@@ -33,7 +33,6 @@ export class AddPostComponent {
       const post : Post = this.addForm.value;
       post.id = this.posts.length > 0 ? this.posts[this.posts.length - 1].id + 1 : 1,
       this.store.dispatch(addPost({ post }));
-      // this.addForm.reset();
       this.onCancel();
     } else {
       this.error = 'Please enter name and price';

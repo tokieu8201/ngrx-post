@@ -3,7 +3,6 @@ import { Post } from '../models/post.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { updatePostSuccess } from '../state/post.actions';
-import { selectSelectedPost } from '../state/post.selectors';
 
 @Component({
   selector: 'app-edit-post',
@@ -49,7 +48,7 @@ export class EditPostComponent implements OnInit, OnChanges {
       //console.log(updatedPost.title);
     }
     else {
-      this.error = 'Please enter name and price';
+      this.error = 'Please enter the required information';
     }
   }
   
